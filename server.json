@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.MattJeff/cliponit",
+  "title": "ClipOnIt",
+  "description": "Turn a long video into short, subtitled, reframed clips: import by URL or file, detect viral moments, auto-reframe on faces, cut silences, subtitles, B-roll, music, emojis, export 9:16 / 16:9 MP4. OAuth sign-in, Pro plan.",
+  "version": "1.0.0",
+  "websiteUrl": "https://cliponit.app",
+  "repository": {
+    "url": "https://github.com/MattJeff/cliponit-mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://cliponit.app/mcp"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "auth": "oauth2 (dynamic client registration RFC 7591 + PKCE S256, metadata at /.well-known/oauth-protected-resource)",
+      "docs": "https://cliponit.app/docs",
+      "openapi": "https://cliponit.app/openapi.json"
+    }
+  }
+}
