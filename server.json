@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.MattJeff/cliponit",
   "title": "ClipOnIt",
-  "description": "Turn a long video into short, subtitled, reframed clips: import by URL or file, detect viral moments, auto-reframe on faces, cut silences, subtitles, B-roll, music, emojis, export 9:16 / 16:9 MP4. OAuth sign-in, Pro plan.",
+  "description": "Turn long videos into short, subtitled, auto-reframed clips from Claude or ChatGPT.",
   "version": "1.0.0",
   "websiteUrl": "https://cliponit.app",
   "repository": {
