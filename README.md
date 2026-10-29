@@ -1,8 +1,11 @@
 # ClipOnIt MCP Server
 
-> Turn a long video into short, subtitled, auto-reframed clips — driven from Claude, ChatGPT, or any MCP client.
+> Turn a long video into short, subtitled, auto-reframed clips — and make AI explainer videos from a topic or a voice-over — driven from Claude, ChatGPT, or any MCP client. 70 tools.
 
-[ClipOnIt](https://cliponit.app) is a hosted video clipping service. This repository documents its **remote MCP server**, so that an AI assistant can run the whole pipeline on your behalf: import a video, find the best moments, reframe on faces, add word-by-word subtitles, and export vertical clips.
+[ClipOnIt](https://cliponit.app) is a hosted video clipping service. This repository documents its **remote MCP server**, so that an AI assistant can run both products on your behalf:
+
+- **Clipping** — import a video, find the best moments, reframe on faces, add word-by-word subtitles, and export vertical clips.
+- **Explainer videos** — go from an idea, a script or a voice-over to an animated explainer built from a library of nearly 11,000 elements, then critique, polish and render it.
 
 **Endpoint:** `https://cliponit.app/mcp` (Streamable HTTP)
 
@@ -22,7 +25,7 @@ Then `/mcp` → Authenticate.
 
 ## Authentication
 
-OAuth 2.1 with Dynamic Client Registration (RFC 7591) and PKCE (S256) — no manual key needed; your client registers itself. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts. API and MCP access are included from the Starter plan.
+OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591) — no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts. API and MCP access are included from the Starter plan.
 
 ## Tools
 
@@ -33,6 +36,12 @@ OAuth 2.1 with Dynamic Client Registration (RFC 7591) and PKCE (S256) — no man
 | Editing | `update_clip_edit` · `set_default_subtitles` · `auto_reframe` · `auto_zoom` · `detect_silences` · `describe_clip` |
 | Export | `export_clip` · `export_all_clips` · `get_export` · `wait_export` · `cancel_export` · `get_export_frame` |
 | Account | `get_quota` |
+| Explainer — plan | `explainer_idea` · `explainer_storyboard` · `explainer_styles` · `explainer_templates` · `explainer_schema` · `explainer_check` |
+| Explainer — elements | `explainer_library` · `explainer_browse` · `explainer_search_elements` · `explainer_suggest_elements` · `explainer_describe_elements` · `explainer_library_elements` · `explainer_my_elements` · `explainer_create_element` · `explainer_library_add_element` · `explainer_forge` |
+| Explainer — build | `explainer_compose` · `explainer_produce` · `explainer_assist` · `explainer_variants` · `explainer_critique` · `explainer_polish` · `explainer_preview` · `explainer_versions` |
+| Explainer — voice | `explainer_import_audio` · `explainer_audio_status` · `explainer_audio_list` · `explainer_compose_from_audio` · `explainer_narrate` · `explainer_retake` |
+| Explainer — render | `explainer_render` · `explainer_wait` · `explainer_export` · `explainer_job_status` · `explainer_job_wait` · `explainer_jobs` · `explainer_job_cancel` |
+| Explainer — library | `explainer_list` · `explainer_delete` · `explainer_my_templates` · `explainer_template_save` · `explainer_template_run` · `explainer_taste_get` · `explainer_brand_get` · `explainer_brand_set` |
 
 Formats: 9:16, 16:9, 1:1 and 4:5, each with its own independent edit. Subtitles come in five styles, word by word.
 
@@ -41,6 +50,10 @@ Formats: 9:16, 16:9, 1:1 and 4:5, each with its own independent edit. Subtitles 
 > "Take my last uploaded video, find the 5 best moments, reframe them on the speaker, add yellow karaoke subtitles, and export them in 9:16."
 
 The assistant chains `list_videos` → `get_video` → `auto_reframe` → `update_clip_edit` → `export_clip` → `wait_export` and hands back the MP4 links.
+
+> "Make a 60-second explainer about how our onboarding works, in our brand colors, with a voice-over."
+
+The assistant chains `explainer_idea` → `explainer_produce` → `explainer_job_wait` → `explainer_critique` → `explainer_polish` → `explainer_render` → `explainer_wait`.
 
 ## Links
 

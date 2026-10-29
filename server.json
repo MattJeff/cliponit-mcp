@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.MattJeff/cliponit",
   "title": "ClipOnIt",
-  "description": "Turn long videos into short, subtitled, auto-reframed clips from Claude or ChatGPT.",
-  "version": "1.0.0",
+  "description": "Long video to captioned 9:16 shorts, plus AI explainer videos from a topic or voice. 70 tools.",
+  "version": "1.1.0",
   "websiteUrl": "https://cliponit.app",
   "repository": {
     "url": "https://github.com/MattJeff/cliponit-mcp",
@@ -17,7 +17,7 @@
   ],
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": {
-      "auth": "oauth2 (dynamic client registration RFC 7591 + PKCE S256, metadata at /.well-known/oauth-protected-resource)",
+      "auth": "oauth2 (client ID metadata documents or dynamic client registration RFC 7591, PKCE S256, metadata at /.well-known/oauth-protected-resource)",
       "docs": "https://cliponit.app/docs",
       "openapi": "https://cliponit.app/openapi.json"
     }
