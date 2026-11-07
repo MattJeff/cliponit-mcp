@@ -2,24 +2,18 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.MattJeff/cliponit",
   "title": "ClipOnIt",
-  "description": "Long video to captioned 9:16 shorts, plus AI explainer videos from a topic or voice. 70 tools.",
-  "version": "1.1.0",
+  "description": "Long video to captioned 9:16 shorts, and animated explainer videos from an idea or a voice.",
+  "version": "1.2.0",
   "websiteUrl": "https://cliponit.app",
-  "repository": {
-    "url": "https://github.com/MattJeff/cliponit-mcp",
-    "source": "github"
-  },
-  "remotes": [
-    {
-      "type": "streamable-http",
-      "url": "https://cliponit.app/mcp"
-    }
-  ],
+  "repository": { "url": "https://github.com/MattJeff/cliponit-mcp", "source": "github" },
+  "icons": [{ "src": "https://cliponit.app/assets/favicon.svg?v=2", "mimeType": "image/svg+xml" }],
+  "remotes": [{ "type": "streamable-http", "url": "https://cliponit.app/mcp" }],
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": {
-      "auth": "oauth2 (client ID metadata documents or dynamic client registration RFC 7591, PKCE S256, metadata at /.well-known/oauth-protected-resource)",
-      "docs": "https://cliponit.app/docs",
-      "openapi": "https://cliponit.app/openapi.json"
+      "auth": "OAuth 2.1 (client ID metadata documents or dynamic client registration RFC 7591, PKCE S256, metadata at /.well-known/oauth-protected-resource) or Authorization: Bearer ck_ API key; Starter plan or above",
+      "docs": "https://cliponit.app/llms-api.txt",
+      "openapi": "https://cliponit.app/openapi.json",
+      "pricing": "https://cliponit.app/pricing"
     }
   }
 }

@@ -1,6 +1,6 @@
 # ClipOnIt MCP Server
 
-> Turn a long video into short, subtitled, auto-reframed clips — and make AI explainer videos from a topic or a voice-over — driven from Claude, ChatGPT, or any MCP client. 70 tools.
+> Turn a long video into short, subtitled, auto-reframed clips — and make AI explainer videos from a topic or a voice-over — driven from Claude, ChatGPT, or any MCP client. More than 100 tools, 22 visual styles for explainers, and your own.
 
 [ClipOnIt](https://cliponit.app) is a hosted video clipping service. This repository documents its **remote MCP server**, so that an AI assistant can run both products on your behalf:
 
@@ -19,7 +19,9 @@ claude mcp add --transport http cliponit https://cliponit.app/mcp
 ```
 Then `/mcp` → Authenticate.
 
-**ChatGPT** — Settings → Connectors → Developer mode → Create → URL `https://cliponit.app/mcp` → OAuth.
+**ChatGPT** — `chatgpt.com/plugins` → **+** → Add custom MCP server → URL `https://cliponit.app/mcp` → OAuth → sign in to ClipOnIt.
+
+**Cursor / VS Code** — add `{ "mcpServers": { "cliponit": { "url": "https://cliponit.app/mcp" } } }` (Cursor `~/.cursor/mcp.json`) or `{ "servers": { "cliponit": { "type": "http", "url": "https://cliponit.app/mcp" } } }` (VS Code `.vscode/mcp.json`), then sign in when prompted.
 
 **Anything else** — the server speaks JSON-RPC 2.0 over HTTP POST and advertises OAuth 2.1 metadata at `/.well-known/oauth-protected-resource`.
 
@@ -28,6 +30,8 @@ Then `/mcp` → Authenticate.
 OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591) — no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts. API and MCP access are included from the Starter plan.
 
 ## Tools
+
+Main tools below. The complete, current list (with schemas) is what `tools/list` returns, also published at https://cliponit.app/.well-known/mcp.json.
 
 | Area | Tools |
 |---|---|
