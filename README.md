@@ -1,5 +1,7 @@
 # ClipOnIt MCP Server
 
+[![i18n](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.glotlang.com%2Fbadge%2Fcliponit.json)](https://glotlang.com)
+
 > Turn a long video into short, subtitled, auto-reframed clips — and make AI explainer videos from a topic or a voice-over — driven from Claude, ChatGPT, or any MCP client. 70 tools.
 
 [ClipOnIt](https://cliponit.app) is a hosted video clipping service. This repository documents its **remote MCP server**, so that an AI assistant can run both products on your behalf:
