@@ -60,7 +60,9 @@ Then `/mcp` → Authenticate.
 
 ## Authentication
 
-OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591), no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts. API and MCP access are included from the Starter plan.
+OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591), no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts.
+
+**Plans.** The MCP server and the API key work from the free plan: 3 Explainer videos a month with a small watermark, in 8 styles (`get_quota`, `explainer_styles`, `explainer_produce`…). Paid plans (Starter, Pro, Business) add more videos (15, 30 or 100 a month), no watermark, all 24 styles and your own, your own voice-over and the AI Director. Setup guide and quotas: https://cliponit.app/claude-mcp
 
 ## Explainer tools
 
@@ -82,6 +84,7 @@ The server also keeps ClipOnIt's earlier tools working: clipping long videos int
 ## Links
 
 - Web app — https://cliponit.app
+- Generate videos with Claude (setup, prompts, plans) — https://cliponit.app/claude-mcp
 - API reference (OpenAPI 3.1) — https://cliponit.app/openapi.json · interactive: https://cliponit.app/docs
 - Plain-text summary for LLMs — https://cliponit.app/llms.txt
 - Discovery manifest — https://cliponit.app/.well-known/mcp.json
