@@ -2,13 +2,19 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.MattJeff/cliponit",
   "title": "ClipOnIt",
-  "description": "AI Explainer: a topic, script or voice-over becomes a finished vertical video. 24 styles, and yours.",
-  "version": "1.1.0",
+  "description": "AI Explainer: an idea, text or your voice becomes an animated 9:16 video. 24 styles, plus your own.",
+  "version": "1.2.0",
   "websiteUrl": "https://cliponit.app",
   "repository": {
     "url": "https://github.com/MattJeff/cliponit-mcp",
     "source": "github"
   },
+  "icons": [
+    {
+      "src": "https://cliponit.app/assets/favicon.svg?v=2",
+      "mimeType": "image/svg+xml"
+    }
+  ],
   "remotes": [
     {
       "type": "streamable-http",
@@ -17,9 +23,11 @@
   ],
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": {
-      "auth": "oauth2 (client ID metadata documents or dynamic client registration RFC 7591, PKCE S256, metadata at /.well-known/oauth-protected-resource)",
-      "docs": "https://cliponit.app/docs",
-      "openapi": "https://cliponit.app/openapi.json"
+      "auth": "OAuth 2.1 (client ID metadata documents or dynamic client registration RFC 7591, PKCE S256, metadata at /.well-known/oauth-protected-resource) or Authorization: Bearer ck_ API key. Free plan included: 3 watermarked Explainer videos a month in 8 styles; Starter, Pro and Business for more videos, no watermark, all 24 styles and your own",
+      "docs": "https://cliponit.app/claude-mcp",
+      "llms": "https://cliponit.app/llms-api.txt",
+      "openapi": "https://cliponit.app/openapi.json",
+      "pricing": "https://cliponit.app/pricing"
     }
   }
 }

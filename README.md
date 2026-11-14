@@ -21,8 +21,9 @@ get_quota                                   -> what your plan has left this mont
 explainer_produce {topic, style?, dry_run: true}  -> cost estimate, nothing created or billed
 explainer_produce {topic, style?, duration_s?, voice?}  -> {job}
 explainer_job_wait {job_id}                 -> repeat until status = done: job.url is the MP4, job.editor_url opens it in the editor
-publish_tiktok                              -> prepares the TikTok post; you confirm it in ClipOnIt
 ```
+
+To post the video on TikTok, open `job.editor_url`: the owner publishes it from the ClipOnIt editor and confirms there. (`publish_tiktok` only posts clip exports, not Explainer videos.)
 
 A production takes a few minutes. Instead of a topic you can pass a ready `script`, or your own voice-over (`audio_url` / `audio_id`): the video is then built on your voice.
 
@@ -54,7 +55,9 @@ claude mcp add --transport http cliponit https://cliponit.app/mcp
 ```
 Then `/mcp` → Authenticate.
 
-**ChatGPT** — Settings → Connectors → Developer mode → Create → URL `https://cliponit.app/mcp` → OAuth.
+**ChatGPT** — `chatgpt.com/plugins` → **+** → Add custom MCP server → URL `https://cliponit.app/mcp` → OAuth → sign in to ClipOnIt.
+
+**Cursor / VS Code** — add `{ "mcpServers": { "cliponit": { "url": "https://cliponit.app/mcp" } } }` (Cursor `~/.cursor/mcp.json`) or `{ "servers": { "cliponit": { "type": "http", "url": "https://cliponit.app/mcp" } } }` (VS Code `.vscode/mcp.json`), then sign in when prompted.
 
 **Anything else** — the server speaks JSON-RPC 2.0 over HTTP POST and advertises OAuth 2.1 metadata at `/.well-known/oauth-protected-resource`.
 
@@ -62,9 +65,11 @@ Then `/mcp` → Authenticate.
 
 OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591), no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts.
 
-**Plans.** The MCP server and the API key work from the free plan: 3 Explainer videos a month with a small watermark, in 8 styles (`get_quota`, `explainer_styles`, `explainer_produce`…). Paid plans (Starter, Pro, Business) add more videos (15, 30 or 100 a month), no watermark, all 24 styles and your own, your own voice-over and the AI Director. Setup guide and quotas: https://cliponit.app/claude-mcp
+**Plans.** The MCP server and the API key work from the free plan: 3 Explainer videos a month with a small watermark, in 8 styles (`get_quota`, `explainer_styles`, `explainer_produce`…). Paid plans (Starter $29, Pro $49, Business $149 a month) add more videos (15, 30 or 100 a month), no watermark, all 24 styles and your own style import, plus the advanced features: AI Director, variants, your own voice-over and your brand kit. Setup guide and quotas: https://cliponit.app/claude-mcp
 
 ## Explainer tools
+
+A standard account sees 125 tools, 45 of them for explainers (main ones below). The complete, current list with schemas is what `tools/list` returns.
 
 | Area | Tools |
 |---|---|
