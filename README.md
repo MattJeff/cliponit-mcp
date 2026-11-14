@@ -1,15 +1,48 @@
-# ClipOnIt MCP Server
+# ClipOnIt MCP Server — AI Explainer videos
 
 [![i18n](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.glotlang.com%2Fbadge%2Fcliponit.json)](https://glotlang.com)
 
-> Turn a long video into short, subtitled, auto-reframed clips — and make AI explainer videos from a topic or a voice-over — driven from Claude, ChatGPT, or any MCP client. 70 tools.
+> Ask Claude, ChatGPT or any MCP client for an explainer video on any topic and get back a finished vertical MP4: script, voice-over, animation, subtitles and music. 24 visual styles, and yours.
 
-[ClipOnIt](https://cliponit.app) is a hosted video clipping service. This repository documents its **remote MCP server**, so that an AI assistant can run both products on your behalf:
-
-- **Clipping** — import a video, find the best moments, reframe on faces, add word-by-word subtitles, and export vertical clips.
-- **Explainer videos** — go from an idea, a script or a voice-over to an animated explainer built from a library of nearly 11,000 elements, then critique, polish and render it.
+[ClipOnIt](https://cliponit.app) is an AI Explainer. This repository documents its **remote MCP server**, so that an AI assistant can produce explainer videos on your behalf, from a topic, a script or your own voice-over.
 
 **Endpoint:** `https://cliponit.app/mcp` (Streamable HTTP)
+
+![Frames from explainer videos rendered by the ClipOnIt engine, one per style](docs/styles.jpg)
+
+*One frame per style, each taken from a video rendered by the ClipOnIt engine.*
+
+## The fastest path
+
+One call produces the whole video on the server (script, checks, voice, render):
+
+```text
+get_quota                                   -> what your plan has left this month
+explainer_produce {topic, style?, dry_run: true}  -> cost estimate, nothing created or billed
+explainer_produce {topic, style?, duration_s?, voice?}  -> {job}
+explainer_job_wait {job_id}                 -> repeat until status = done: job.url is the MP4, job.editor_url opens it in the editor
+publish_tiktok                              -> prepares the TikTok post; you confirm it in ClipOnIt
+```
+
+A production takes a few minutes. Instead of a topic you can pass a ready `script`, or your own voice-over (`audio_url` / `audio_id`): the video is then built on your voice.
+
+## Examples
+
+> "Make a 45-second explainer on why the sky is blue, flat vector style."
+
+The assistant calls `explainer_produce {topic: "Why is the sky blue", style: "vecteur-plat", duration_s: 45}` then `explainer_job_wait` and hands back the MP4 link.
+
+> "Here is my voice-over, turn it into a video in the night-tale style."
+
+`explainer_narrate` (or `explainer_import_audio`) → `explainer_audio_status` → `explainer_produce {audio_id, style: "conte-nocturne"}` → `explainer_job_wait`.
+
+> "Same video, but make scene 3 more dramatic and add a map when she mentions Suez."
+
+`explainer_assist {script, message}` → `explainer_check` → `explainer_render` → `explainer_wait`.
+
+## Styles
+
+`explainer_styles` lists them with their scene fields: `pixel-news`, `archibald`, `briefing-satellite`, `cartoon-comedie`, `conte-nocturne`, `croquis-cours`, `documentaire-rouge`, `ecran-social`, `enquete-lumineuse`, `fil-de-fer`, `flash-dossier`, `grille-suisse`, `liste-tech`, `maison-en-coupe`, `mannequins`, `nuit-voxel`, `papier-presse`, `pixel-ambiance`, `reconstitution-3d`, `retro-synthwave`, `silhouettes-neon`, `toon-bureau`, `trait-minimal`, `vecteur-plat`. And yours: your brand kit (`explainer_brand_set`) and your own elements (`explainer_create_element`, `explainer_forge`).
 
 ## Connect
 
@@ -27,35 +60,24 @@ Then `/mcp` → Authenticate.
 
 ## Authentication
 
-OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591) — no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts. API and MCP access are included from the Starter plan.
+OAuth 2.1 with PKCE (S256). Clients identify themselves with a Client ID Metadata Document (an HTTPS `client_id` URL) or register through Dynamic Client Registration (RFC 7591), no manual key needed. An API key (`Authorization: Bearer ck_…`, created from the billing page) works too for scripts. API and MCP access are included from the Starter plan.
 
-## Tools
+## Explainer tools
 
 | Area | Tools |
 |---|---|
-| Videos | `list_videos` · `upload_video_file` · `import_video_url` · `get_video` · `wait_video` · `delete_video` |
-| Clips | `find_moment` · `get_clip` · `delete_clip` · `set_clip_bounds` · `snap_clip_to_words` · `get_transcript` |
-| Editing | `update_clip_edit` · `set_default_subtitles` · `auto_reframe` · `auto_zoom` · `detect_silences` · `describe_clip` |
-| Export | `export_clip` · `export_all_clips` · `get_export` · `wait_export` · `cancel_export` · `get_export_frame` |
+| Produce | `explainer_produce` · `explainer_job_wait` · `explainer_job_status` · `explainer_jobs` · `explainer_job_cancel` · `publish_tiktok` |
+| Plan | `explainer_idea` · `explainer_storyboard` · `explainer_styles` · `explainer_templates` · `explainer_schema` · `explainer_check` |
+| Elements | `explainer_library` · `explainer_browse` · `explainer_search_elements` · `explainer_suggest_elements` · `explainer_describe_elements` · `explainer_library_elements` · `explainer_my_elements` · `explainer_create_element` · `explainer_library_add_element` · `explainer_forge` |
+| Build | `explainer_compose` · `explainer_assist` · `explainer_variants` · `explainer_critique` · `explainer_polish` · `explainer_preview` · `explainer_versions` |
+| Voice | `explainer_import_audio` · `explainer_audio_status` · `explainer_audio_list` · `explainer_compose_from_audio` · `explainer_narrate` · `explainer_retake` |
+| Render | `explainer_render` · `explainer_wait` · `explainer_export` |
+| Library | `explainer_list` · `explainer_delete` · `explainer_my_templates` · `explainer_template_save` · `explainer_template_run` · `explainer_taste_get` · `explainer_brand_get` · `explainer_brand_set` |
 | Account | `get_quota` |
-| Explainer — plan | `explainer_idea` · `explainer_storyboard` · `explainer_styles` · `explainer_templates` · `explainer_schema` · `explainer_check` |
-| Explainer — elements | `explainer_library` · `explainer_browse` · `explainer_search_elements` · `explainer_suggest_elements` · `explainer_describe_elements` · `explainer_library_elements` · `explainer_my_elements` · `explainer_create_element` · `explainer_library_add_element` · `explainer_forge` |
-| Explainer — build | `explainer_compose` · `explainer_produce` · `explainer_assist` · `explainer_variants` · `explainer_critique` · `explainer_polish` · `explainer_preview` · `explainer_versions` |
-| Explainer — voice | `explainer_import_audio` · `explainer_audio_status` · `explainer_audio_list` · `explainer_compose_from_audio` · `explainer_narrate` · `explainer_retake` |
-| Explainer — render | `explainer_render` · `explainer_wait` · `explainer_export` · `explainer_job_status` · `explainer_job_wait` · `explainer_jobs` · `explainer_job_cancel` |
-| Explainer — library | `explainer_list` · `explainer_delete` · `explainer_my_templates` · `explainer_template_save` · `explainer_template_run` · `explainer_taste_get` · `explainer_brand_get` · `explainer_brand_set` |
 
-Formats: 9:16, 16:9, 1:1 and 4:5, each with its own independent edit. Subtitles come in five styles, word by word.
+## Other tools
 
-## Example
-
-> "Take my last uploaded video, find the 5 best moments, reframe them on the speaker, add yellow karaoke subtitles, and export them in 9:16."
-
-The assistant chains `list_videos` → `get_video` → `auto_reframe` → `update_clip_edit` → `export_clip` → `wait_export` and hands back the MP4 links.
-
-> "Make a 60-second explainer about how our onboarding works, in our brand colors, with a voice-over."
-
-The assistant chains `explainer_idea` → `explainer_produce` → `explainer_job_wait` → `explainer_critique` → `explainer_polish` → `explainer_render` → `explainer_wait`.
+The server also keeps ClipOnIt's earlier tools working: clipping long videos into short subtitled clips (`import_video_url`, `wait_video`, `export_clip`…), montage (`montage_*`), remix (`repost_*`), live (`live_*`) and ready-made plans (`plan_templates`, `run_plan`). `tools/list` lists them after the explainer tools.
 
 ## Links
 

@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.MattJeff/cliponit",
   "title": "ClipOnIt",
-  "description": "Long video to captioned 9:16 shorts, plus AI explainer videos from a topic or voice. 70 tools.",
+  "description": "AI Explainer: a topic, script or voice-over becomes a finished vertical video. 24 styles, and yours.",
   "version": "1.1.0",
   "websiteUrl": "https://cliponit.app",
   "repository": {
